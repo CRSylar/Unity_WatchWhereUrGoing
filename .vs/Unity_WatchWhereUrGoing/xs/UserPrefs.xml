@@ -1,12 +1,15 @@
 ﻿<Properties StartupConfiguration="{B5045C76-9BA3-6BC9-E101-AA49DC814355}|">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Projectile.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Projectile.cs" Line="23" Column="26" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Unity_WatchWhereUrGoing" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Enemy.cs" selected="True" />
+                <Node name="Projectile.cs" selected="True" />
               </Node>
             </Node>
           </Node>
