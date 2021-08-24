@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - PowerUp
   - PowerUpIndicator
+  - JumpSlam
+  - ShotFire
+  - EnemyBoss
   layers:
   - Default
   - TransparentFX

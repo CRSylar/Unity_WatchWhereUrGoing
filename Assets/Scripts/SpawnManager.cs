@@ -7,8 +7,9 @@ public class SpawnManager : MonoBehaviour
     private float spawnRange = 9;
     private PlayerController playerControllerScript;
 
-    public GameObject powerUpPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] powerUpPrefab;
+    public GameObject[] enemyPrefab;
+    public GameObject enemyBossPrefab;
     public int enemyCount;
     public int level = 1;
 
@@ -17,7 +18,6 @@ public class SpawnManager : MonoBehaviour
     {
         playerControllerScript = GameObject.Find( "Player" ).GetComponent<PlayerController>();
         SpawnEnemyWave(level);
-        Instantiate(powerUpPrefab, GenerateSpawnPosition(), powerUpPrefab.transform.rotation);
     }
 
     // Update is called once per frame
@@ -26,12 +26,16 @@ public class SpawnManager : MonoBehaviour
         if ( !playerControllerScript.gameOver )
         {
             enemyCount = FindObjectsOfType<Enemy>().Length;
+
             if ( enemyCount == 0 )
             {
                 SpawnEnemyWave( ++level );
 
-                if ( level % 3 == 0 )
-                    Instantiate( powerUpPrefab, GenerateSpawnPosition(), powerUpPrefab.transform.rotation );
+                if ( level % 2 == 0 )
+				{
+                    int powerUpIdx = Random.Range( 0, powerUpPrefab.Length );
+                    Instantiate( powerUpPrefab[powerUpIdx], GenerateSpawnPosition(), powerUpPrefab[powerUpIdx].transform.rotation );
+				}
             }
         }
         else
@@ -53,7 +57,31 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < level; i++)
         {
-            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+            if ( level % 4 == 0 )
+            {
+                SpawnBossWave( level / 2);
+                level -= 2;
+            }
+
+            int enemyIdx = Random.Range( 0, enemyPrefab.Length );
+            Instantiate( enemyPrefab[enemyIdx], GenerateSpawnPosition(), enemyPrefab[enemyIdx].transform.rotation );
+        }
+    }
+
+    void SpawnBossWave(int minionsToSpawn)
+    {
+        var boss = Instantiate( enemyBossPrefab, GenerateSpawnPosition(), enemyBossPrefab.transform.rotation );
+
+        boss.GetComponent<Enemy>().enemyToSpawn = minionsToSpawn;
+    }
+
+    public void SpawnMinion(int amount)
+	{
+        for (int i = 0; i < amount; i++ )
+		{
+            int enemyIdx = Random.Range( 0, enemyPrefab.Length );
+
+			Instantiate( enemyPrefab[enemyIdx], GenerateSpawnPosition(), enemyPrefab[enemyIdx].transform.rotation );
         }
     }
 }
