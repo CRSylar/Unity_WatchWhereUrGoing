@@ -19,6 +19,8 @@ public class Projectile : MonoBehaviour
 			transform.position += moveDirection * speed * Time.deltaTime;
 			transform.LookAt( target );
 		}
+		else
+			Destroy( gameObject );
 	}
 
 	public void Fire(Transform newTarget )
@@ -40,7 +42,6 @@ public class Projectile : MonoBehaviour
 				Destroy( gameObject );
 			}
 		}
-		else
-			Destroy( gameObject );
+		
 	}
 }
